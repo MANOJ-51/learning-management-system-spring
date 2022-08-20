@@ -1,13 +1,13 @@
 package com.bridgelabz.learningmanagementsystem.controller;
 
 import com.bridgelabz.learningmanagementsystem.dto.AdminDTO;
-import com.bridgelabz.learningmanagementsystem.dto.temp.ChangePasswordDTO;
 import com.bridgelabz.learningmanagementsystem.model.AdminModel;
 import com.bridgelabz.learningmanagementsystem.service.IAdminService;
 import com.bridgelabz.learningmanagementsystem.util.ResponseClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,13 +18,13 @@ public class AdminController {
 
     //create admin
     @PostMapping("/createAdmin")
-    public AdminModel createModel (@RequestBody AdminDTO adminDTO){
+    public AdminModel createModel (@RequestBody @Valid AdminDTO adminDTO){
         return iAdminService.createAdmin(adminDTO);
     }
 
     //Update admin
     @PutMapping("/updateAdmin/{id}")
-    public AdminModel updateAdmin (@PathVariable Long id,@RequestBody AdminDTO adminDTO,@RequestHeader String token){
+    public AdminModel updateAdmin (@RequestHeader String token,@PathVariable Long id,@RequestBody @Valid AdminDTO adminDTO){
         return iAdminService.editAdmin(id,adminDTO,token);
     }
 
@@ -36,7 +36,7 @@ public class AdminController {
 
     //delete admin
     @DeleteMapping("/deleteAdmin/{id}")
-    public AdminModel deleteAdmin(@PathVariable Long id,@RequestHeader String token){
+    public AdminModel deleteAdmin(@RequestHeader String token,@PathVariable Long id){
         return iAdminService.removeAdmin(id,token);
     }
 
@@ -54,7 +54,12 @@ public class AdminController {
 
     //change admin Password
     @PutMapping("/changeAdminPassword")
-    public AdminModel changePassword(@RequestHeader String token , @RequestBody ChangePasswordDTO changePasswordDTO){
-        return iAdminService.changePassword(token,changePasswordDTO);
+    public AdminModel changePassword(@RequestHeader String token , @RequestParam String newPassword){
+        return iAdminService.changePassword(token,newPassword);
+    }
+
+    @PutMapping("/addProfilePath")
+    public AdminModel addProfilePath(@RequestHeader String token,@RequestParam String profilePath){
+        return iAdminService.setProfilePath(token,profilePath);
     }
 }

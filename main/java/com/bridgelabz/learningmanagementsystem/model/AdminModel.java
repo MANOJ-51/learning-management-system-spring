@@ -28,7 +28,6 @@ public class AdminModel {
         this.mobileNumber = adminDTO.getMobileNumber();
         this.emailId = adminDTO.getEmailId();
         this.password = adminDTO.getPassword();
-        this.profilePath = adminDTO.getProfilePath();
     }
 
     public AdminModel() {

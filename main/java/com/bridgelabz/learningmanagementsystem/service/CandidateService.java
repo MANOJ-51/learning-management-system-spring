@@ -93,8 +93,13 @@ public class CandidateService implements ICandidateService {
     }
 
     @Override
-    public Long getCount(String userChoice) {
-        return iCandidateRepository.countByStatus(userChoice);
+    public Long getCount(String userChoice, String token) {
+        Long adminId = tokenUtil.decodeToken(token);
+        Optional<AdminModel> isAdminPresent = iAdminRepository.findById(adminId);
+        if (isAdminPresent.isPresent()) {
+            return iCandidateRepository.statusCount(userChoice);
         }
+        throw new CustomExceptions(400,"Invalid Token");
+    }
 
 }

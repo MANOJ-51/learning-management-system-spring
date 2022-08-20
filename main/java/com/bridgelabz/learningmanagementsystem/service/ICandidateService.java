@@ -14,5 +14,5 @@ public interface ICandidateService {
 
     CandidateModel removeCandidate(String token, Long id);
 
-    Long getCount(String userChoice);
+    Long getCount(String userChoice, String token);
 }

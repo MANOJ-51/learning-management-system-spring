@@ -1,7 +1,6 @@
 package com.bridgelabz.learningmanagementsystem.service;
 
 import com.bridgelabz.learningmanagementsystem.dto.AdminDTO;
-import com.bridgelabz.learningmanagementsystem.dto.temp.ChangePasswordDTO;
 import com.bridgelabz.learningmanagementsystem.exception.CustomExceptions;
 import com.bridgelabz.learningmanagementsystem.model.AdminModel;
 import com.bridgelabz.learningmanagementsystem.repository.IAdminRepository;
@@ -38,7 +37,6 @@ public class AdminService implements IAdminService{
                 isAdminPresent.get().setMobileNumber(adminDTO.getMobileNumber());
                 isAdminPresent.get().setEmailId(adminDTO.getEmailId());
                 isAdminPresent.get().setPassword(adminDTO.getPassword());
-                isAdminPresent.get().setProfilePath(adminDTO.getProfilePath());
                 isAdminPresent.get().setUpdatedStamp(LocalDateTime.now());
                 iAdminRepository.save(isAdminPresent.get());
                 String body = "Admin Update Is Successful with id :-"+isAdminPresent.get().getId()+"\n"+isAdminPresent.get();
@@ -55,7 +53,7 @@ public class AdminService implements IAdminService{
         AdminModel adminModel = new AdminModel(adminDTO);
         adminModel.setCreatorStamp(LocalDateTime.now());
         iAdminRepository.save(adminModel);
-        String body = "Admin Registration Is Successful with id :-"+adminDTO.getId()+"\n"+adminDTO;
+        String body = "Admin Registration Is Successful with id :-"+adminModel.getId()+"\n"+adminModel;
         String subject = "Admin Registration Success";
         mailService.send(adminDTO.getEmailId(), body,subject);
         return adminModel;
@@ -110,7 +108,7 @@ public class AdminService implements IAdminService{
         Optional<AdminModel> isEmailPresent = iAdminRepository.findByEmailId(email);
         if (isEmailPresent.isPresent()){
             String token = tokenUtil.createToken(isEmailPresent.get().getId());
-            String url = "http:localhost:8080/adminAPIS/changeAdminPassword"+token;
+            String url = System.getenv("url")+"\n"+token;
             String subject = "Admin reset Success";
             mailService.send(isEmailPresent.get().getEmailId(),url,subject);
         }
@@ -118,16 +116,28 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public AdminModel changePassword(String token, ChangePasswordDTO changePasswordDTO) {
+    public AdminModel changePassword(String token, String newPassword) {
         Long adminId = tokenUtil.decodeToken(token);
         Optional<AdminModel> isAdminIdPresent = iAdminRepository.findById(adminId);
         if (isAdminIdPresent.isPresent()){
-            isAdminIdPresent.get().setPassword(changePasswordDTO.getNewPassword());
+            isAdminIdPresent.get().setPassword(newPassword);
             iAdminRepository.save(isAdminIdPresent.get());
             String body = "Admin Change Password Is Successful with id :-"+isAdminIdPresent.get().getId()+"\n"+isAdminIdPresent.get();
             String subject = "Admin Change Password Success";
             mailService.send(isAdminIdPresent.get().getEmailId(), body,subject);
             return isAdminIdPresent.get();
+        }
+        throw new CustomExceptions(400,"Invalid Token");
+    }
+
+    @Override
+    public AdminModel setProfilePath(String token, String profilePath) {
+        Long adminId = tokenUtil.decodeToken(token);
+        Optional<AdminModel> isAdminPresent = iAdminRepository.findById(adminId);
+        if (isAdminPresent.isPresent()){
+            isAdminPresent.get().setProfilePath(profilePath);
+            iAdminRepository.save(isAdminPresent.get());
+            return isAdminPresent.get();
         }
         throw new CustomExceptions(400,"Invalid Token");
     }

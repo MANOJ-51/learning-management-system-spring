@@ -6,6 +6,7 @@ import com.bridgelabz.learningmanagementsystem.service.ICandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,13 +17,13 @@ public class CandidateController {
 
     //create candidate
     @PostMapping("/createCandidate")
-    public CandidateModel createCandidate(@RequestHeader String token, @RequestBody CandidateDTO candidateDTO){
+    public CandidateModel createCandidate(@RequestHeader String token, @RequestBody @Valid CandidateDTO candidateDTO){
         return iCandidateService.addCandidate(token,candidateDTO);
     }
 
     //update candidate
     @PutMapping("/updateCandidate/{id}")
-    public CandidateModel updateCandidate(@RequestHeader String token,@PathVariable Long id , @RequestBody CandidateDTO candidateDTO){
+    public CandidateModel updateCandidate(@RequestHeader String token,@PathVariable Long id , @RequestBody @Valid CandidateDTO candidateDTO){
         return iCandidateService.editCandidate(token,id,candidateDTO);
     }
 
@@ -38,9 +39,9 @@ public class CandidateController {
         return iCandidateService.removeCandidate(token,id);
     }
 
-    //getcount
+    //getCount
     @GetMapping("/countOfStatus")
-    public Long countOfStatus (@RequestParam String userChoice){
-        return iCandidateService.getCount(userChoice);
+    public Long countOfStatus (@RequestHeader String token,@RequestParam String userChoice){
+        return iCandidateService.getCount(token,userChoice);
     }
 }
