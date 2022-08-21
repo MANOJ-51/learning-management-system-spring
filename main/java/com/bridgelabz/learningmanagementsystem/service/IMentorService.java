@@ -16,7 +16,7 @@ public interface IMentorService {
 
     MentorModel addPath(String token, Long id, String profilePath);
 
-    Long getCountId(String token);
+    MentorModel getListId(String token, Long id);
 
     Long getCountByType(String token, String userChoice);
 }

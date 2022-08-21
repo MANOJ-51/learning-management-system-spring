@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 public interface IMentorRepository extends JpaRepository<MentorModel,Long> {
-    @Query(value = "select count(id) from mentor_details ",nativeQuery = true)
-    Long countId();
+    //@Query(value = "select count(id) from mentor_details ",nativeQuery = true)
+    MentorModel getMentorModelById(Long id);
     long countByMentorType(String userChoice);
 }

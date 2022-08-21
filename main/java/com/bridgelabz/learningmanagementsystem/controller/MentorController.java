@@ -40,9 +40,9 @@ public class MentorController {
         return iMentorService.addPath(token,id,profilePath);
     }
 
-    @GetMapping("/countById")
-    public Long getCountById (@RequestHeader String token ){
-        return iMentorService.getCountId(token);
+    @GetMapping("/listById/{id}")
+    public MentorModel getListById (@RequestHeader String token,@PathVariable Long id ){
+        return iMentorService.getListId(token,id);
     }
 
     @GetMapping("/getCountByType")

@@ -108,11 +108,11 @@ public class MentorService implements IMentorService {
     }
 
     @Override
-    public Long getCountId(String token) {
+    public MentorModel getListId(String token, Long id) {
         Long adminId = tokenUtil.decodeToken(token);
         Optional<AdminModel> isAdminPresent = iAdminRepository.findById(adminId);
         if (isAdminPresent.isPresent()){
-            return iMentorRepository.countId();
+            return iMentorRepository.getMentorModelById(id);
         }
         throw new CustomExceptions(400,"Invalid Token");
     }
