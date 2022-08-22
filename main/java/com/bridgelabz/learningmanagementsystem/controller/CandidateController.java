@@ -17,14 +17,16 @@ public class CandidateController {
 
     //create candidate
     @PostMapping("/createCandidate")
-    public CandidateModel createCandidate(@RequestHeader String token, @RequestBody @Valid CandidateDTO candidateDTO){
-        return iCandidateService.addCandidate(token,candidateDTO);
+    public CandidateModel createCandidate(@RequestHeader String token,@RequestParam Long techId,
+                                          @RequestBody @Valid CandidateDTO candidateDTO){
+        return iCandidateService.addCandidate(token,techId,candidateDTO);
     }
 
     //update candidate
     @PutMapping("/updateCandidate/{id}")
-    public CandidateModel updateCandidate(@RequestHeader String token,@PathVariable Long id , @RequestBody @Valid CandidateDTO candidateDTO){
-        return iCandidateService.editCandidate(token,id,candidateDTO);
+    public CandidateModel updateCandidate(@RequestHeader String token,@PathVariable Long id ,@RequestParam Long techId,
+                                          @RequestBody @Valid CandidateDTO candidateDTO){
+        return iCandidateService.editCandidate(token,id,techId,candidateDTO);
     }
 
     //List of candidates

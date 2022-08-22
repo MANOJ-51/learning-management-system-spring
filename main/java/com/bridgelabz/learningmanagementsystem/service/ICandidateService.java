@@ -6,9 +6,9 @@ import com.bridgelabz.learningmanagementsystem.model.CandidateModel;
 import java.util.List;
 
 public interface ICandidateService {
-    CandidateModel addCandidate(String token, CandidateDTO candidateDTO);
+    CandidateModel addCandidate(String token, Long techId, CandidateDTO candidateDTO);
 
-    CandidateModel editCandidate(String token, Long id, CandidateDTO candidateDTO);
+    CandidateModel editCandidate(String token, Long id, Long techId, CandidateDTO candidateDTO);
 
     List<CandidateModel> viewList(String token);
 

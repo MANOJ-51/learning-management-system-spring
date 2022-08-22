@@ -4,8 +4,10 @@ import com.bridgelabz.learningmanagementsystem.dto.CandidateDTO;
 import com.bridgelabz.learningmanagementsystem.exception.CustomExceptions;
 import com.bridgelabz.learningmanagementsystem.model.AdminModel;
 import com.bridgelabz.learningmanagementsystem.model.CandidateModel;
+import com.bridgelabz.learningmanagementsystem.model.TechStackModel;
 import com.bridgelabz.learningmanagementsystem.repository.IAdminRepository;
 import com.bridgelabz.learningmanagementsystem.repository.ICandidateRepository;
+import com.bridgelabz.learningmanagementsystem.repository.ITechStackRepository;
 import com.bridgelabz.learningmanagementsystem.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +25,18 @@ public class CandidateService implements ICandidateService {
     @Autowired
     IAdminRepository iAdminRepository;
 
+    @Autowired
+    ITechStackRepository iTechStackRepository;
+
     @Override
-    public CandidateModel addCandidate(String token, CandidateDTO candidateDTO) {
+    public CandidateModel addCandidate(String token, Long techId, CandidateDTO candidateDTO) {
         Long adminId = tokenUtil.decodeToken(token);
         Optional<AdminModel> isAdminPresent = iAdminRepository.findById(adminId);
         if (isAdminPresent.isPresent()){
             CandidateModel candidateModel = new CandidateModel(candidateDTO);
             candidateModel.setCreatedStamp(LocalDateTime.now());
+            Optional<TechStackModel> isTechPresent = iTechStackRepository.findById(techId);
+            candidateModel.setTechStackModel(isTechPresent.get());
             iCandidateRepository.save(candidateModel);
             return candidateModel;
         }
@@ -37,7 +44,7 @@ public class CandidateService implements ICandidateService {
     }
 
     @Override
-    public CandidateModel editCandidate(String token, Long id, CandidateDTO candidateDTO) {
+    public CandidateModel editCandidate(String token, Long id, Long techId, CandidateDTO candidateDTO) {
         Long adminId = tokenUtil.decodeToken(token);
         Optional<AdminModel> isAdminPresent = iAdminRepository.findById(adminId);
         if (isAdminPresent.isPresent()){
@@ -58,6 +65,7 @@ public class CandidateService implements ICandidateService {
                 isIdPresent.get().setCreatorUser(candidateDTO.getCreatorUser());
                 isIdPresent.get().setCandidateStatus(candidateDTO.getCandidateStatus());
                 isIdPresent.get().setUpdatedStamp(LocalDateTime.now());
+                isIdPresent.get().setTechStackModel(iTechStackRepository.getReferenceById(techId));
                 iCandidateRepository.save(isIdPresent.get());
                 return isIdPresent.get();
             }

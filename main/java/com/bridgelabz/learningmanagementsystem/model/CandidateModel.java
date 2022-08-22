@@ -29,6 +29,8 @@ public class CandidateModel {
     private String candidateStatus;
     private LocalDateTime createdStamp;
     private LocalDateTime updatedStamp;
+    @OneToOne
+    TechStackModel techStackModel;
 
     public CandidateModel(CandidateDTO candidateDTO) {
         this.cicId = candidateDTO.getCicId();
