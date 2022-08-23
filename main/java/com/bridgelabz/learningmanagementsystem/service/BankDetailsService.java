@@ -14,6 +14,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose:Creating Service for bankDetails
+ * @author Manoj
+ * @Param business logic is present here
+ * Version 1.0
+ */
 @Service
 public class BankDetailsService implements IBankDetailsService{
     @Autowired
@@ -25,6 +31,11 @@ public class BankDetailsService implements IBankDetailsService{
     @Autowired
     IAdminRepository iAdminRepository;
 
+    /**
+     * Purpose:Creating method to add bank
+     * @author Manoj
+     * @Param bankDto,token
+     */
     @Override
     public BankDetailsModel addBankDetails(String token,BankDetailsDTO bankDetailsDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -39,6 +50,11 @@ public class BankDetailsService implements IBankDetailsService{
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Update Bank
+     * @author Manoj
+     * @Param BankDto ,id ,token
+     */
     @Override
     public BankDetailsModel editBank(String token, Long id, BankDetailsDTO bankDetailsDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -59,6 +75,11 @@ public class BankDetailsService implements IBankDetailsService{
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to get List of Bank
+     * @author Manoj
+     * @Param  token
+     */
     @Override
     public List<BankDetailsModel> viewList(String token) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -72,6 +93,11 @@ public class BankDetailsService implements IBankDetailsService{
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Delete Bank
+     * @author Manoj
+     * @Param  token,id
+     */
     @Override
     public BankDetailsModel removeBank(String token, Long id) {
         Long adminId = tokenUtil.decodeToken(token);

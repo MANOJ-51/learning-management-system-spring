@@ -16,6 +16,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose:Creating Service for Candidate
+ * @author Manoj
+ * @Param business logic is present here
+ * Version 1.0
+ */
 @Service
 public class CandidateService implements ICandidateService {
     @Autowired
@@ -28,6 +34,11 @@ public class CandidateService implements ICandidateService {
     @Autowired
     ITechStackRepository iTechStackRepository;
 
+    /**
+     * Purpose:Creating method to add candidate
+     * @author Manoj
+     * @Param candidateDto,token,techID
+     */
     @Override
     public CandidateModel addCandidate(String token, Long techId, CandidateDTO candidateDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -43,6 +54,11 @@ public class CandidateService implements ICandidateService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Update Candidate
+     * @author Manoj
+     * @Param CandidateDto ,id ,token,techID
+     */
     @Override
     public CandidateModel editCandidate(String token, Long id, Long techId, CandidateDTO candidateDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -73,6 +89,11 @@ public class CandidateService implements ICandidateService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to get List of Candidate
+     * @author Manoj
+     * @Param  token
+     */
     @Override
     public List<CandidateModel> viewList(String token) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -86,6 +107,12 @@ public class CandidateService implements ICandidateService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+
+    /**
+     * Purpose:Creating method to Delete Candidate
+     * @author Manoj
+     * @Param  token,id
+     */
     @Override
     public CandidateModel removeCandidate(String token, Long id) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -100,6 +127,11 @@ public class CandidateService implements ICandidateService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to get count of Status
+     * @author Manoj
+     * @Param  token,userChoice
+     */
     @Override
     public Long getCount(String userChoice, String token) {
         Long adminId = tokenUtil.decodeToken(token);

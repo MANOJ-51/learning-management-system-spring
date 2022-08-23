@@ -14,6 +14,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose:Creating Service for Mentor
+ * @author Manoj
+ * @Param business logic is present here
+ * Version 1.0
+ */
 @Service
 public class MentorService implements IMentorService {
     @Autowired
@@ -25,6 +31,11 @@ public class MentorService implements IMentorService {
     @Autowired
     IAdminRepository iAdminRepository;
 
+    /**
+     * Purpose:Creating method to add mentor
+     * @author Manoj
+     * @Param mentorDto,token
+     */
     @Override
     public MentorModel addMentor(String token, MentorDTO mentorDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -38,6 +49,11 @@ public class MentorService implements IMentorService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Update mentor
+     * @author Manoj
+     * @Param MentorDto ,id ,token
+     */
     @Override
     public MentorModel editMentor(String token, Long id, MentorDTO mentorDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -67,6 +83,11 @@ public class MentorService implements IMentorService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to get List of mentor
+     * @author Manoj
+     * @Param  token
+     */
     @Override
     public List<MentorModel> viewList(String token) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -80,6 +101,11 @@ public class MentorService implements IMentorService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Delete mentor
+     * @author Manoj
+     * @Param  token,id
+     */
     @Override
     public MentorModel removeMentor(String token, Long id) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -94,6 +120,11 @@ public class MentorService implements IMentorService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to add profile path to mentor
+     * @author Manoj
+     * @Param  token,profilePath,id
+     */
     @Override
     public MentorModel addPath(String token, Long id, String profilePath) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -107,6 +138,11 @@ public class MentorService implements IMentorService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to get list by id of mentor
+     * @author Manoj
+     * @Param  token,id
+     */
     @Override
     public MentorModel getListId(String token, Long id) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -117,6 +153,11 @@ public class MentorService implements IMentorService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to get count of mentorType
+     * @author Manoj
+     * @Param  token,userChoice
+     */
     @Override
     public Long getCountByType(String token, String userChoice) {
         Long adminId = tokenUtil.decodeToken(token);

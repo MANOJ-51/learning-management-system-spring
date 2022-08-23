@@ -134,6 +134,11 @@ public class AdminService implements IAdminService{
         throw new CustomExceptions(400,"No Details Matched");
     }
 
+    /**
+     * Purpose:Creating method Reset password of Admin
+     * @author Manoj
+     * @Param  email
+     */
     @Override
     public ResponseClass resetAdminPassword(String email) {
         Optional<AdminModel> isEmailPresent = iAdminRepository.findByEmailId(email);
@@ -146,6 +151,11 @@ public class AdminService implements IAdminService{
         throw new CustomExceptions(400,"Invalid Email");
     }
 
+    /**
+     * Purpose:Creating method change password of Admin
+     * @author Manoj
+     * @Param  token,newPassword
+     */
     @Override
     public AdminModel changePassword(String token, String newPassword) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -161,6 +171,11 @@ public class AdminService implements IAdminService{
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to add profile path to Admin
+     * @author Manoj
+     * @Param  token,profilePath
+     */
     @Override
     public AdminModel setProfilePath(String token, String profilePath) {
         Long adminId = tokenUtil.decodeToken(token);

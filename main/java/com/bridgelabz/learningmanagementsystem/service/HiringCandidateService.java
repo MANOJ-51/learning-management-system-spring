@@ -15,6 +15,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose:Creating Service for HiringCandidate
+ * @author Manoj
+ * @Param business logic is present here
+ * Version 1.0
+ */
 @Service
 public class HiringCandidateService implements IHiringCandidateService{
     @Autowired
@@ -27,6 +33,11 @@ public class HiringCandidateService implements IHiringCandidateService{
     @Autowired
     IBankDetailsRepository iBankDetailsRepository;
 
+    /**
+     * Purpose:Creating method to add hiring candidate
+     * @author Manoj
+     * @Param hiringCandidateDto,token,bankID,
+     */
     @Override
     public HiringCandidateModel addHiringCandidate(String token, Long bankId, HiringCandidateDTO hiringCandidateDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -41,6 +52,11 @@ public class HiringCandidateService implements IHiringCandidateService{
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Update Hiring candidate
+     * @author Manoj
+     * @Param HiringCandidateDto ,id ,token,bankID
+     */
     @Override
     public HiringCandidateModel editHiringCandidate(String token, Long id, Long bankId, HiringCandidateDTO hiringCandidateDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -71,6 +87,11 @@ public class HiringCandidateService implements IHiringCandidateService{
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to get List of Hiring candidate
+     * @author Manoj
+     * @Param  token
+     */
     @Override
     public List<HiringCandidateModel> viewList(String token) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -84,6 +105,11 @@ public class HiringCandidateService implements IHiringCandidateService{
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Delete Hiring Candidate
+     * @author Manoj
+     * @Param  token,id
+     */
     @Override
     public HiringCandidateModel removeHiringCandidate(String token, Long id) {
         Long adminId = tokenUtil.decodeToken(token);

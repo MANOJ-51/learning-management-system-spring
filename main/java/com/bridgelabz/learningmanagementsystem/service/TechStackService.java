@@ -14,6 +14,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose:Creating Service for TechStack
+ * @author Manoj
+ * @Param business logic is present here
+ * Version 1.0
+ */
 @Service
 public class TechStackService implements ITechStackService {
 
@@ -26,6 +32,11 @@ public class TechStackService implements ITechStackService {
     @Autowired
     IAdminRepository iAdminRepository;
 
+    /**
+     * Purpose:Creating method to add tech
+     * @author Manoj
+     * @Param techStackDto,token
+     */
     @Override
     public TechStackModel addTech(String token, TechStackDTO techStackDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -40,6 +51,11 @@ public class TechStackService implements ITechStackService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Update tech
+     * @author Manoj
+     * @Param techStackDto ,id ,token
+     */
     @Override
     public TechStackModel editTech(String token, Long id, TechStackDTO techStackDTO) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -57,6 +73,11 @@ public class TechStackService implements ITechStackService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to get List of techStack
+     * @author Manoj
+     * @Param  token
+     */
     @Override
     public List<TechStackModel> viewList(String token) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -70,6 +91,11 @@ public class TechStackService implements ITechStackService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to Delete techStack
+     * @author Manoj
+     * @Param  token,id
+     */
     @Override
     public TechStackModel removeTech(String token, Long id) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -84,6 +110,11 @@ public class TechStackService implements ITechStackService {
         throw new CustomExceptions(400,"Invalid Token");
     }
 
+    /**
+     * Purpose:Creating method to add profile path to techStack
+     * @author Manoj
+     * @Param  token,profilePath,techID
+     */
     @Override
     public TechStackModel addPath(String token, Long techId, String path) {
         Long adminId = tokenUtil.decodeToken(token);
