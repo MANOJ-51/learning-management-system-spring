@@ -8,9 +8,20 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
-
+/**
+ * Purpose:Creating MailService
+ * @author Manoj
+ * @Param  email send
+ * Version 1.0
+ */
 @Component
 public class MailService {
+
+    /**
+     * Purpose:Creating method to send Email
+     * @author Manoj
+     * @Param email,subject,body
+     */
     public static void send (String toEmail,String subject,String body){
         final String FROM_EMAIL=System.getenv("Email");
         final String PASSWORD = System.getenv("emailpwd");

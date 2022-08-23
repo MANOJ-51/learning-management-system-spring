@@ -5,6 +5,12 @@ import com.bridgelabz.learningmanagementsystem.model.HiringCandidateModel;
 
 import java.util.List;
 
+/**
+ * Purpose:Creating Interface for HiringCandidate service
+ * @author Manoj
+ * @Param  all service Methods
+ * Version 1.0
+ */
 public interface IHiringCandidateService {
     HiringCandidateModel addHiringCandidate(String token, Long bankId, HiringCandidateDTO hiringCandidateDTO);
 

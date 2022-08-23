@@ -6,6 +6,12 @@ import com.bridgelabz.learningmanagementsystem.util.ResponseClass;
 
 import java.util.List;
 
+/**
+ * Purpose:Creating Interface for Admin service
+ * @author Manoj
+ * @Param  all service Methods
+ * Version 1.0
+ */
 public interface IAdminService {
      AdminModel editAdmin(Long id, AdminDTO adminDTO, String token);
     AdminModel createAdmin(AdminDTO adminDTO);

@@ -5,6 +5,12 @@ import com.bridgelabz.learningmanagementsystem.model.MentorModel;
 
 import java.util.List;
 
+/**
+ * Purpose:Creating Interface for Mentor service
+ * @author Manoj
+ * @Param  all service Methods
+ * Version 1.0
+ */
 public interface IMentorService {
     MentorModel addMentor(String token, MentorDTO mentorDTO);
 

@@ -5,6 +5,12 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+/**
+ * Purpose:Creating Dto for Mentor
+ * @author Manoj
+ * @Param all the required variables to view in web page
+ * Version 1.0
+ */
 @Data
 public class MentorDTO {
     @NotNull(message = "EmployeeId should not be null")

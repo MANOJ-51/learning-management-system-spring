@@ -5,6 +5,12 @@ import com.bridgelabz.learningmanagementsystem.model.TechStackModel;
 
 import java.util.List;
 
+/**
+ * Purpose:Creating Interface for techStack service
+ * @author Manoj
+ * @Param  all service Methods
+ * Version 1.0
+ */
 public interface ITechStackService {
     TechStackModel addTech(String token, TechStackDTO techStackDTO);
 

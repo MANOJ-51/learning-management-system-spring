@@ -13,6 +13,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose:Creating Service for Admin
+ * @author Manoj
+ * @Param business logic is present here
+ * Version 1.0
+ */
 @Service
 public class AdminService implements IAdminService{
 
@@ -25,6 +31,27 @@ public class AdminService implements IAdminService{
     @Autowired
     MailService mailService;
 
+    /**
+     * Purpose:Creating method to add admin
+     * @author Manoj
+     * @Param AdminDto
+     */
+    @Override
+    public AdminModel createAdmin(AdminDTO adminDTO) {
+        AdminModel adminModel = new AdminModel(adminDTO);
+        adminModel.setCreatorStamp(LocalDateTime.now());
+        iAdminRepository.save(adminModel);
+        String body = "Admin Registration Is Successful with id :-"+adminModel.getId()+"\n"+adminModel;
+        String subject = "Admin Registration Success";
+        mailService.send(adminDTO.getEmailId(), body,subject);
+        return adminModel;
+    }
+
+    /**
+     * Purpose:Creating method to Update Admin
+     * @author Manoj
+     * @Param AdminDto ,id ,token
+     */
     @Override
     public AdminModel editAdmin(Long id, AdminDTO adminDTO, String token) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -48,17 +75,11 @@ public class AdminService implements IAdminService{
         throw new CustomExceptions(400,"Admin Not Found");
     }
 
-    @Override
-    public AdminModel createAdmin(AdminDTO adminDTO) {
-        AdminModel adminModel = new AdminModel(adminDTO);
-        adminModel.setCreatorStamp(LocalDateTime.now());
-        iAdminRepository.save(adminModel);
-        String body = "Admin Registration Is Successful with id :-"+adminModel.getId()+"\n"+adminModel;
-        String subject = "Admin Registration Success";
-        mailService.send(adminDTO.getEmailId(), body,subject);
-        return adminModel;
-    }
-
+    /**
+     * Purpose:Creating method to get List of Admin
+     * @author Manoj
+     * @Param  token
+     */
     @Override
     public List<AdminModel> viewList(String token) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -72,6 +93,11 @@ public class AdminService implements IAdminService{
         throw new CustomExceptions(400,"No Data Found");
     }
 
+    /**
+     * Purpose:Creating method to Delete Admin
+     * @author Manoj
+     * @Param  token,id
+     */
     @Override
     public AdminModel removeAdmin(Long id, String token) {
         Long adminId = tokenUtil.decodeToken(token);
@@ -89,6 +115,11 @@ public class AdminService implements IAdminService{
         throw new CustomExceptions(400,"No Admin Found");
     }
 
+    /**
+     * Purpose:Creating method Login to  Admin using unique id called token
+     * @author Manoj
+     * @Param  email,password
+     */
     @Override
     public ResponseClass loginToken(String emailId, String password) {
         Optional<AdminModel> isEmailPresent = iAdminRepository.findByEmailId(emailId);

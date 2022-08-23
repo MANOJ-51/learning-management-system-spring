@@ -5,6 +5,12 @@ import com.bridgelabz.learningmanagementsystem.model.BankDetailsModel;
 
 import java.util.List;
 
+/**
+ * Purpose:Creating Interface for bankDetails service
+ * @author Manoj
+ * @Param  all service Methods
+ * Version 1.0
+ */
 public interface IBankDetailsService {
     BankDetailsModel addBankDetails(String token, BankDetailsDTO bankDetailsModel);
 

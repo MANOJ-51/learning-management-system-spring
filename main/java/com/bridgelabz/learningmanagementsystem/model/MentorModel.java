@@ -6,6 +6,12 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Purpose:Creating model for Mentor
+ * @author Manoj
+ * @Param all the required variables to save in repository
+ * Version 1.0
+ */
 @Entity
 @Data
 @Table(name = "mentor_details")

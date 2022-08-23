@@ -5,6 +5,12 @@ import com.bridgelabz.learningmanagementsystem.model.CandidateModel;
 
 import java.util.List;
 
+/**
+ * Purpose:Creating Interface for Candidate service
+ * @author Manoj
+ * @Param  all service Methods
+ * Version 1.0
+ */
 public interface ICandidateService {
     CandidateModel addCandidate(String token, Long techId, CandidateDTO candidateDTO);
 

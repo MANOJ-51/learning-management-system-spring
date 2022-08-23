@@ -4,6 +4,12 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Purpose:Creating Dto for Candidate
+ * @author Manoj
+ * @Param all the required variables to view in web page
+ * Version 1.0
+ */
 @Data
 public class CandidateDTO {
     @NotNull(message = "cic Id Should Not be Null")
