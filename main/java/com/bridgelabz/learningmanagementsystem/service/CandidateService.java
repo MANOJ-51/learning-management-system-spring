@@ -81,7 +81,8 @@ public class CandidateService implements ICandidateService {
                 isIdPresent.get().setCreatorUser(candidateDTO.getCreatorUser());
                 isIdPresent.get().setCandidateStatus(candidateDTO.getCandidateStatus());
                 isIdPresent.get().setUpdatedStamp(LocalDateTime.now());
-                isIdPresent.get().setTechStackModel(iTechStackRepository.getReferenceById(techId));
+                Optional<TechStackModel> isTechPresent = iTechStackRepository.findById(techId);
+                isIdPresent.get().setTechStackModel(isTechPresent.get());
                 iCandidateRepository.save(isIdPresent.get());
                 return isIdPresent.get();
             }

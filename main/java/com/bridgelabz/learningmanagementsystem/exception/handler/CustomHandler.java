@@ -40,7 +40,7 @@ public class CustomHandler{
     public ResponseEntity<CustomValidation> customHandler(MethodArgumentNotValidException exception){
         CustomValidation customValidation = new CustomValidation();
         customValidation.setErrorCode(400);
-        customValidation.setErrorMessage(exception.getFieldError().getDefaultMessage());
+        customValidation.setErrorMessage(exception.getBindingResult().getFieldError().getDefaultMessage());
         return new ResponseEntity<>(customValidation,HttpStatus.BAD_REQUEST);
     }
 }

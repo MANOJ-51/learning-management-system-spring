@@ -3,6 +3,14 @@ package com.bridgelabz.learningmanagementsystem.controller;
 import com.bridgelabz.learningmanagementsystem.dto.CandidateDTO;
 import com.bridgelabz.learningmanagementsystem.model.CandidateModel;
 import com.bridgelabz.learningmanagementsystem.service.ICandidateService;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +28,12 @@ import java.util.List;
 public class CandidateController {
     @Autowired
     ICandidateService iCandidateService;
+
+    @Autowired
+    private JobLauncher jobLauncher;
+
+    @Autowired
+    private Job job;
 
     /**
      * Purpose:Creating method to add candidate
@@ -71,5 +85,22 @@ public class CandidateController {
     @GetMapping("/countOfStatus")
     public Long countOfStatus (@RequestHeader String token,@RequestParam String userChoice){
         return iCandidateService.getCount(token,userChoice);
+    }    @PostMapping("/importCandidates")
+    public void importCsvToDbJob(){
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addLong("startAt",System.currentTimeMillis()).toJobParameters();
+        try {
+            jobLauncher.run(job,jobParameters);
+        }catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException |
+                JobParametersInvalidException exception){
+            exception.printStackTrace();
+        }
     }
+
+    /**
+     * Purpose:Creating method to add csv data into the database
+     * @author Manoj
+     * @Param
+     */
+
 }

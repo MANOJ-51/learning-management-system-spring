@@ -3,6 +3,7 @@ package com.bridgelabz.learningmanagementsystem.service;
 import com.bridgelabz.learningmanagementsystem.dto.HiringCandidateDTO;
 import com.bridgelabz.learningmanagementsystem.exception.CustomExceptions;
 import com.bridgelabz.learningmanagementsystem.model.AdminModel;
+import com.bridgelabz.learningmanagementsystem.model.BankDetailsModel;
 import com.bridgelabz.learningmanagementsystem.model.HiringCandidateModel;
 import com.bridgelabz.learningmanagementsystem.repository.IAdminRepository;
 import com.bridgelabz.learningmanagementsystem.repository.IBankDetailsRepository;
@@ -45,7 +46,8 @@ public class HiringCandidateService implements IHiringCandidateService{
         if (isAdminPresent.isPresent()){
             HiringCandidateModel hiringCandidateModel = new HiringCandidateModel(hiringCandidateDTO);
             hiringCandidateModel.setCreatedStamp(LocalDateTime.now());
-            hiringCandidateModel.setBankDetailsModel(iBankDetailsRepository.getReferenceById(bankId));
+            Optional<BankDetailsModel> isBankPresent = iBankDetailsRepository.findById(bankId);
+            hiringCandidateModel.setBankDetailsModel(isBankPresent.get());
             iHiringCandidateRepository.save(hiringCandidateModel);
             return hiringCandidateModel;
         }
@@ -79,7 +81,8 @@ public class HiringCandidateService implements IHiringCandidateService{
                 isIdPresent.get().setCreatorUser(hiringCandidateDTO.getCreatorUser());
                 isIdPresent.get().setCandidateStatus(hiringCandidateDTO.getCandidateStatus());
                 isIdPresent.get().setUpdatedStamp(LocalDateTime.now());
-                isIdPresent.get().setBankDetailsModel(iBankDetailsRepository.getReferenceById(bankId));
+                Optional<BankDetailsModel> isBankPresent = iBankDetailsRepository.findById(bankId);
+                isIdPresent.get().setBankDetailsModel(isBankPresent.get());
                 iHiringCandidateRepository.save(isIdPresent.get());
                 return isIdPresent.get();
             }
